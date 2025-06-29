@@ -6,15 +6,16 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
+// builtins.mapAttrs (pkg: _: pkgs.callPackage ./pkgs/${pkg} { }) (
+  pkgs.lib.attrsets.filterAttrs (n: v: v == "directory") (builtins.readDir ./pkgs)
+)
