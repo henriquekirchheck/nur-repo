@@ -1,6 +1,5 @@
 name: "Build and populate cache"
 on:
-  pull_request:
   push:
     branches:
       - main
@@ -9,7 +8,7 @@ on:
     - cron:  '35 7 * * *'
   workflow_dispatch:
 jobs:
-  tests:
+  build:
     strategy:
       matrix:
         # Set this to notify the global nur package registry that changes are
@@ -34,7 +33,7 @@ jobs:
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.05.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
