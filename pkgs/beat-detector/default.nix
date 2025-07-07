@@ -32,6 +32,7 @@ stdenv.mkDerivation {
     description = "Util to detect beats from songs (from caelestia)";
     license = lib.licenses.gpl3;
     downloadPage = "https://github.com/caelestia-dots/shell/blob/main/assets/beat_detector.cpp";
+    homePage = "https://github.com/caelestia-dots/shell";
     mainProgram = "beat-detector";
   };
 }
